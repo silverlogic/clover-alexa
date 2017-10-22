@@ -2,3 +2,4 @@ bin/
 lib/
 myenv/
 pyvenv.cfg
+__pycache__/
