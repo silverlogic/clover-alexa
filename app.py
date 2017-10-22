@@ -48,18 +48,23 @@ def getItemPrice(itemID):
 def getItemName(itemID):
 	return requests.request("GET", f'{BASE_URL}items/{itemID}', headers=headers).json()['name']
 
+def dollarsAndCents(amount):
+	return f'{int(str(amount)[2:])} dollars and {int(str(amount)[:2])} cents'
+
 def raiseItemPrice(itemID):
+	old_price = getItemPrice(itemID)
 	new_price = int(float(getItemPrice(itemID))*1.2)
 	payload = '{"price":"' + str(new_price) + '"}'
 	requests.request("POST", f'{BASE_URL}items/{itemID}', headers=headers, data=payload)
-	return f'The price of {getItemName(itemID)} is now twenty percent higher'
+	return f'The price of {getItemName(itemID)} rose from {dollarsAndCents(old_price)} to {dollarsAndCents(new_price)}'
 	
 def lowerItemPrice(itemID):
+	old_price = getItemPrice(itemID)
 	new_price = int(float(getItemPrice(itemID))*.8)
 	payload = '{"price":"' + str(new_price) + '"}'
 	requests.request("POST", f'{BASE_URL}items/{itemID}', headers=headers, data=payload)
-	return f'The price of {getItemName(itemID)} is now twenty percent lower'
-
+	return f'The price of {getItemName(itemID)} fell from {dollarsAndCents(old_price)} to {dollarsAndCents(new_price)}'
+	
 @ask.intent('raisePrices')
 def raiseHardCodedItems():
 	frozenBanana = raiseItemPrice('33WAPCMCR5Z1Y')
@@ -72,6 +77,8 @@ def lowerHardCodedItems():
 	mudBone = lowerItemPrice('JKDDN6XGBDBVP')
 	print(f'Move those products. {mudBone}.')
 	return statement(f'Move those products. {mudBone}.')
+
+lowerHardCodedItems()
 
 if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 443))
