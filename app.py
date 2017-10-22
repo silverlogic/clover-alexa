@@ -10,10 +10,7 @@ import requests
 app = Flask(__name__)
 ask = Ask(app, '/')
 headers = { 'authorization': "Bearer 1669926f-c367-6f58-5027-31512f1661eb",'cache-control': "no-cache"}
-
-# nextOpenOrderUrl = "https://api.clover.com/v3/merchants/3S2JC4YEV2XTE/orders?limit=1"
 BASE_URL = "https://api.clover.com/v3/merchants/3S2JC4YEV2XTE/"
-# /3S2JC4YEV2XTE/tags/KW3TE8QSB4FYE/items
 
 @ask.intent('getNextItems')
 def getNextLineItems():
@@ -39,27 +36,42 @@ def parseElements(url):
 
 @ask.intent('highPerformers')
 def highPerformers():
-	return statement('We\re killing it. In the past 12 hours your top items have been George\'s Classic Frozen Banana and Hot Cop Special. Raise the price of high performing items by twenty percent by saying Raise Prices.')
+	return statement('We are killing it. In the past 12 hours your top items have been George\'s Classic Frozen Banana and Hot Cop Special. Raise the price of high performing items by twenty percent by saying Raise Prices.')
 	
 @ask.intent('lowPerformers')
 def lowPerformers():
-	return statement('We\ve made a huge mistake. In the past 12 hours your least performant item has been the Banana MudBone Supreme. Lower the price of low performing items by twenty percent by saying Lower Prices.')
+	return statement('We have made a huge mistake. In the past 12 hours your least performant item has been the Banana MudBone Supreme. Lower the price of low performing items by twenty percent by saying Lower Prices.')
+	
+def getItemPrice(itemID):
+	return requests.request("GET", f'{BASE_URL}items/{itemID}', headers=headers).json()['price']
 
-	# In the past 12 hours your top items have been George's Classic Frozen Banana and Hot Cop Special. 
-	# Do you want to raise the price of these items by twenty percent? 
-	# yes -> OK! Let's make it rain. Refresh the customer app to see the new prices"
-	# no -> OK! Your current prices seem to be working well. 
+def getItemName(itemID):
+	return requests.request("GET", f'{BASE_URL}items/{itemID}', headers=headers).json()['name']
 
-	# In the past 12 hours your least performant item has been the Banana MudBone Supreme. 
-	# Do you want to lower the price of these items by twenty percent? 
-	# yes -> OK! Let's move these products. Refresh the customer app to see the new prices"
-	# no -> OK! Let's try to move these items another way. 	
+def raiseItemPrice(itemID):
+	new_price = int(float(getItemPrice(itemID))*1.2)
+	payload = '{"price":"' + str(new_price) + '"}'
+	requests.request("POST", f'{BASE_URL}items/{itemID}', headers=headers, data=payload)
+	return f'The price of {getItemName(itemID)} is now twenty percent higher'
+	
+def lowerItemPrice(itemID):
+	new_price = int(float(getItemPrice(itemID))*.8)
+	payload = '{"price":"' + str(new_price) + '"}'
+	requests.request("POST", f'{BASE_URL}items/{itemID}', headers=headers, data=payload)
+	return f'The price of {getItemName(itemID)} is now twenty percent lower'
 
-# print(getNextOrder())
+@ask.intent('raisePrices')
+def raiseHardCodedItems():
+	frozenBanana = raiseItemPrice('33WAPCMCR5Z1Y')
+	hotCop = raiseItemPrice('KRFZRYVY7JGK0')
+	print(f'Make it rain. {frozenBanana}. {hotCop}.')
+	return statement(f'Make it rain. {frozenBanana}. {hotCop}.')
 
-# getNextLineItems()
-
-# print(getRandomItems())
+@ask.intent('lowerPrices')
+def lowerHardCodedItems():
+	mudBone = lowerItemPrice('JKDDN6XGBDBVP')
+	print(f'Move those products. {mudBone}.')
+	return statement(f'Move those products. {mudBone}.')
 
 if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 443))
