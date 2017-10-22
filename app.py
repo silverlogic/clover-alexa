@@ -14,10 +14,10 @@ BASE_URL = "https://api.clover.com/v3/merchants/3S2JC4YEV2XTE/"
 
 @ask.intent('getNextItems')
 def getNextLineItems():
-	orderID = 'getNextOrder()'
-	openLineItemsUrl = f'{BASE_URL}orders/{orderID}/line_items'
-	lineItems_str = parseElements(openLineItemsUrl)
-	print(lineItems_str) 
+	# orderID = 'getNextOrder()'
+	# openLineItemsUrl = f'{BASE_URL}orders/{orderID}/line_items'
+	# lineItems_str = parseElements(openLineItemsUrl)
+	# print(lineItems_str) 
 	# return statement(f'The items in the next order are {lineItems_str}')
 	# hardcoding for demo purposes only 
 	return statement('The items in the next order are Busters Mother-lovin Banana and Choco-Smothered Banana') 
