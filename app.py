@@ -14,10 +14,10 @@ lineItems = []
 @ask.intent('getNextItems')
 def getLineItems():
 	elements = requests.request("GET", openLineItemsUrl, headers=headers).json()['elements']
-	for element in elements:
-		lineItems.append(element['name'])
-    lineItems_str = ', '.join(lineItems[:-1])
-    lineItems_str += f', and {lineItems[-1]}' 
+	# for element in elements:
+	# 	lineItems.append(element['name'])
+ #    lineItems_str = ', '.join(lineItems[:-1])
+ #    lineItems_str += f', and {lineItems[-1]}' 
 	return statement(f'The items in the next order are ') #{lineItems_str}') 
 
 nextOpenOrderUrl = "https://api.clover.com/v3/merchants/3S2JC4YEV2XTE/orders?limit=1&status=open"
