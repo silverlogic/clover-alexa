@@ -35,3 +35,6 @@ openLineItemsUrl = "https://api.clover.com/v3/merchants/3S2JC4YEV2XTE/orders/GQV
 response = requests.request("GET", openLineItemsUrl, headers=headers)
 
 print(getLineItems())
+
+if __name__ == '__main__':
+    app.run()
