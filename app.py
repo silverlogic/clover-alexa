@@ -1,4 +1,5 @@
 import re
+import os
 
 from flask import Flask
 from flask_ask import Ask, statement, question, session
@@ -37,4 +38,5 @@ response = requests.request("GET", openLineItemsUrl, headers=headers)
 print("hello")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+	port = int(os.environ.get("PORT", 5000))
+	app.run(debug=True, host='0.0.0.0', port=port)
