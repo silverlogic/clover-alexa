@@ -39,11 +39,11 @@ def parseElements(url):
 
 @ask.intent('highPerformers')
 def highPerformers():
-	return statement('In the past 12 hours your top items have been George\'s Classic Frozen Banana and Hot Cop Special. Raise the price of high performing items by twenty percent by saying Raise Prices.')
+	return statement('We\re killing it. In the past 12 hours your top items have been George\'s Classic Frozen Banana and Hot Cop Special. Raise the price of high performing items by twenty percent by saying Raise Prices.')
 	
 @ask.intent('lowPerformers')
 def lowPerformers():
-	return statement('In the past 12 hours your least performant item has been the Banana MudBone Supreme. Lower the price of low performing items by twenty percent by saying Lower Prices.')
+	return statement('We\ve made a huge mistake. In the past 12 hours your least performant item has been the Banana MudBone Supreme. Lower the price of low performing items by twenty percent by saying Lower Prices.')
 
 	# In the past 12 hours your top items have been George's Classic Frozen Banana and Hot Cop Special. 
 	# Do you want to raise the price of these items by twenty percent? 
