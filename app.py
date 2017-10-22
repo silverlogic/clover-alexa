@@ -51,7 +51,8 @@ def getItemName(itemID):
 	return requests.request("GET", f'{BASE_URL}items/{itemID}', headers=headers).json()['name']
 
 def dollarsAndCents(amount):
-	return f'{int(str(amount)[2:])} dollars and {int(str(amount)[:2])} cents'
+	# print(f'{int(str(amount)[:2])} dollars and {int(str(amount)[2:])} cents')
+	return f'{int(str(amount)[:2])} dollars and {int(str(amount)[2:])} cents'
 
 def raiseItemPrice(itemID):
 	old_price = getItemPrice(itemID)
@@ -79,6 +80,8 @@ def lowerHardCodedItems():
 	mudBone = lowerItemPrice('JKDDN6XGBDBVP')
 	print(f'Move those products. {mudBone}.')
 	return statement(f'Move those products. {mudBone}.')
+
+dollarsAndCents('0001')
 
 if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 443))
