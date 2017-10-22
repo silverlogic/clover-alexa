@@ -38,11 +38,11 @@ def parseElements(url):
 
 @ask.intent('highPerformers')
 def highPerformers():
-	return statement('We are killing it. In the past 12 hours your top items have been George\'s Classic Frozen Banana and Hot Cop Special. Raise the price of high performing items by twenty percent by saying Raise Prices.')
+	return statement('We are killing it. In the past 12 hours your top items have been George\'s Classic Frozen Banana and Hot Cop Special. Raise the price of high performing items by twenty percent by saying food truck app, Raise Prices.')
 	
 @ask.intent('lowPerformers')
 def lowPerformers():
-	return statement('We have made a huge mistake. In the past 12 hours your least performant item has been the Banana MudBone Supreme. Lower the price of low performing items by twenty percent by saying Lower Prices.')
+	return statement('We have made a huge mistake. In the past 12 hours your least performant item has been the Banana MudBone Supreme. Lower the price of low performing items by twenty percent by saying food truck app, Lower Prices.')
 	
 def getItemPrice(itemID):
 	return requests.request("GET", f'{BASE_URL}items/{itemID}', headers=headers).json()['price']
