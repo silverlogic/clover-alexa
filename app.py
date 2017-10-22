@@ -20,7 +20,7 @@ def getNextLineItems():
 	print(lineItems_str) 
 	# return statement(f'The items in the next order are {lineItems_str}')
 	# hardcoding for demo purposes only 
-	return statement(f'The items in the next order are Busters Mother-lovin Banana and Choco-Smothered Banana}') 
+	return statement('The items in the next order are Busters Mother-lovin Banana and Choco-Smothered Banana') 
 
 def getNextOrder():
 	return requests.request("GET", f'{BASE_URL}orders?limit=1', headers=headers).json()['elements'][0]['id']
