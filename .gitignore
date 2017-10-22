@@ -1,0 +1,4 @@
+bin/
+lib/
+myenv/
+pyvenv.cfg
